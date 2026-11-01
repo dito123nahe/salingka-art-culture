@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'role_list_screen.dart';
 import '../providers/member_provider.dart';
 import 'member_form_screen.dart';
 
@@ -21,7 +23,19 @@ class _MemberListScreenState extends State<MemberListScreen> {
   Widget build(BuildContext context) {
     final p = context.watch<MemberProvider>();
     return Scaffold(
-      appBar: AppBar(title: const Text('Anggota Sanggar')),
+      appBar: AppBar(
+        title: const Text('Anggota Sanggar'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.badge),
+            tooltip: 'Kelola peran',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const RoleListScreen()),
+            ),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(
           context,
@@ -32,40 +46,43 @@ class _MemberListScreenState extends State<MemberListScreen> {
       body: p.loading
           ? const Center(child: CircularProgressIndicator())
           : p.error != null
-              ? Center(child: Text(p.error!))
-              : RefreshIndicator(
-                  onRefresh: p.fetchMembers,
-                  child: ListView.builder(
-                    itemCount: p.members.length,
-                    itemBuilder: (_, i) {
-                      final m = p.members[i];
-                      return ListTile(
-                        leading: CircleAvatar(child: Text(m.nama[0].toUpperCase())),
-                        title: Text(m.nama),
-                        subtitle: Text(m.noHp ?? '-'),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              m.statusAktif ? Icons.check_circle : Icons.cancel,
-                              color: m.statusAktif ? Colors.green : Colors.grey,
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete),
-                              onPressed: () => p.deleteMember(m.id!),
-                            ),
-                          ],
+          ? Center(child: Text(p.error!))
+          : RefreshIndicator(
+              onRefresh: p.fetchMembers,
+              child: ListView.builder(
+                itemCount: p.members.length,
+                itemBuilder: (_, i) {
+                  final m = p.members[i];
+                  return ListTile(
+                    leading: CircleAvatar(child: Text(m.nama[0].toUpperCase())),
+                    title: Text(m.nama),
+                    subtitle: Text(
+                      '${m.noHp ?? '-'}\n${m.roles.isEmpty ? 'Belum ada peran' : m.roles.map((r) => r.namaPeran).join(', ')}',
+                    ),
+                    isThreeLine: true,
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          m.statusAktif ? Icons.check_circle : Icons.cancel,
+                          color: m.statusAktif ? Colors.green : Colors.grey,
                         ),
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => MemberFormScreen(member: m),
-                          ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => p.deleteMember(m.id!),
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ],
+                    ),
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MemberFormScreen(member: m),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
     );
   }
 }

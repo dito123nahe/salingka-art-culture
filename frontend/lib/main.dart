@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'providers/role_provider.dart';
 import 'providers/member_provider.dart';
 import 'screens/member_list_screen.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => MemberProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MemberProvider()),
+        ChangeNotifierProvider(create: (_) => RoleProvider()),
+      ],
       child: const MyApp(),
     ),
   );
