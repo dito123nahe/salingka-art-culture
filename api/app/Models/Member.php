@@ -11,4 +11,9 @@ class Member extends Model
     protected $casts = [
         'status_aktif' => 'boolean',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'member_roles');
+    }
 }
