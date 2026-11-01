@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'providers/role_provider.dart';
 import 'providers/member_provider.dart';
 import 'screens/member_list_screen.dart';
+import 'providers/dance_provider.dart';
 
 void main() {
   runApp(
@@ -11,6 +12,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => MemberProvider()),
         ChangeNotifierProvider(create: (_) => RoleProvider()),
+        ChangeNotifierProvider(create: (_) => DanceProvider()),
       ],
       child: const MyApp(),
     ),

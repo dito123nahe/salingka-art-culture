@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'role_list_screen.dart';
 import '../providers/member_provider.dart';
 import 'member_form_screen.dart';
+import 'dance_list_screen.dart';
 
 class MemberListScreen extends StatefulWidget {
   const MemberListScreen({super.key});
@@ -27,11 +28,11 @@ class _MemberListScreenState extends State<MemberListScreen> {
         title: const Text('Anggota Sanggar'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.badge),
-            tooltip: 'Kelola peran',
+            icon: const Icon(Icons.festival),
+            tooltip: 'Kelola tari',
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const RoleListScreen()),
+              MaterialPageRoute(builder: (_) => const DanceListScreen()),
             ),
           ),
         ],
