@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'role_list_screen.dart';
 import '../providers/member_provider.dart';
 import 'member_form_screen.dart';
+import 'role_list_screen.dart';
 import 'dance_list_screen.dart';
+import 'client_list_screen.dart';
 
 class MemberListScreen extends StatefulWidget {
   const MemberListScreen({super.key});
@@ -28,11 +29,27 @@ class _MemberListScreenState extends State<MemberListScreen> {
         title: const Text('Anggota Sanggar'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.badge),
+            tooltip: 'Kelola peran',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const RoleListScreen()),
+            ),
+          ),
+          IconButton(
             icon: const Icon(Icons.festival),
             tooltip: 'Kelola tari',
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const DanceListScreen()),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.contacts),
+            tooltip: 'Kelola klien',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ClientListScreen()),
             ),
           ),
         ],
@@ -54,12 +71,13 @@ class _MemberListScreenState extends State<MemberListScreen> {
                 itemCount: p.members.length,
                 itemBuilder: (_, i) {
                   final m = p.members[i];
+                  final peran = m.roles.isEmpty
+                      ? 'Belum ada peran'
+                      : m.roles.map((r) => r.namaPeran).join(', ');
                   return ListTile(
                     leading: CircleAvatar(child: Text(m.nama[0].toUpperCase())),
                     title: Text(m.nama),
-                    subtitle: Text(
-                      '${m.noHp ?? '-'}\n${m.roles.isEmpty ? 'Belum ada peran' : m.roles.map((r) => r.namaPeran).join(', ')}',
-                    ),
+                    subtitle: Text('${m.noHp ?? '-'}\n$peran'),
                     isThreeLine: true,
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
