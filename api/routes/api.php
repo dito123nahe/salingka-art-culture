@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DanceController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -15,3 +16,4 @@ Route::apiResource('members', MemberController::class);
 Route::apiResource('roles', RoleController::class);
 Route::apiResource('dances', DanceController::class);
 Route::apiResource('clients', ClientController::class);
+Route::apiResource('bookings', BookingController::class);

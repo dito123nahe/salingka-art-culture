@@ -6,8 +6,13 @@ import 'providers/member_provider.dart';
 import 'screens/member_list_screen.dart';
 import 'providers/dance_provider.dart';
 import 'providers/client_provider.dart';
+import 'providers/booking_provider.dart';
 
-void main() {
+import 'package:intl/date_symbol_data_local.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID');
   runApp(
     MultiProvider(
       providers: [
@@ -15,6 +20,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => RoleProvider()),
         ChangeNotifierProvider(create: (_) => DanceProvider()),
         ChangeNotifierProvider(create: (_) => ClientProvider()),
+        ChangeNotifierProvider(create: (_) => BookingProvider()),
       ],
       child: const MyApp(),
     ),

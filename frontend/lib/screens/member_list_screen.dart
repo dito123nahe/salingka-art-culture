@@ -6,6 +6,7 @@ import 'member_form_screen.dart';
 import 'role_list_screen.dart';
 import 'dance_list_screen.dart';
 import 'client_list_screen.dart';
+import 'booking_list_screen.dart';
 
 class MemberListScreen extends StatefulWidget {
   const MemberListScreen({super.key});
@@ -50,6 +51,14 @@ class _MemberListScreenState extends State<MemberListScreen> {
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const ClientListScreen()),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.event),
+            tooltip: 'Booking',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const BookingListScreen()),
             ),
           ),
         ],
