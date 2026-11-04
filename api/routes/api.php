@@ -8,6 +8,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -24,3 +25,7 @@ Route::put('bookings/{booking}/assignments', [AssignmentController::class, 'sync
 Route::get('attendances', [AttendanceController::class, 'index']);
 Route::post('attendances', [AttendanceController::class, 'store']);
 Route::get('attendances/rekap', [AttendanceController::class, 'rekap']);
+Route::get('bookings/{booking}/transactions', [TransactionController::class, 'index']);
+Route::post('bookings/{booking}/transactions', [TransactionController::class, 'store']);
+Route::delete('bookings/{booking}/transactions/{transaction}', [TransactionController::class, 'destroy']);
+Route::put('bookings/{booking}/kas', [TransactionController::class, 'updateKas']);

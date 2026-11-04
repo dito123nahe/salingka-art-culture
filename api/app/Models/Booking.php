@@ -8,7 +8,8 @@ class Booking extends Model
 {
     protected $fillable = [
         'client_id', 'jenis_acara', 'tanggal', 'jam_mulai', 'jam_selesai',
-        'lokasi', 'link_maps', 'total_biaya', 'status', 'catatan',
+        'lokasi', 'link_maps', 'total_biaya', 'kas_tipe', 'kas_nilai',
+        'status', 'catatan',
     ];
 
     public function client()
@@ -20,5 +21,10 @@ class Booking extends Model
     {
         return $this->belongsToMany(Dance::class, 'booking_dances')
             ->withTimestamps();
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }
