@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'assignment_screen.dart';
 import '../models/booking.dart';
 import '../providers/booking_provider.dart';
 import 'booking_form_screen.dart';
@@ -150,10 +151,20 @@ class _BookingListScreenState extends State<BookingListScreen> {
                         children: [
                           if (b.linkMaps != null)
                             IconButton(
-                              icon: const Icon(Icons.map),
-                              tooltip: 'Buka peta',
-                              onPressed: () => _bukaPeta(b.linkMaps!),
+                              icon: const Icon(Icons.groups),
+                              tooltip: 'Atur pemain',
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => AssignmentScreen(booking: b),
+                                ),
+                              ),
                             ),
+                          IconButton(
+                            icon: const Icon(Icons.map),
+                            tooltip: 'Buka peta',
+                            onPressed: () => _bukaPeta(b.linkMaps!),
+                          ),
                           IconButton(
                             icon: const Icon(Icons.chat),
                             tooltip: 'Kirim ke WhatsApp',
