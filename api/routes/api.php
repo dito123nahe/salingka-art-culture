@@ -7,6 +7,7 @@ use App\Http\Controllers\DanceController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AttendanceController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -20,3 +21,6 @@ Route::apiResource('clients', ClientController::class);
 Route::apiResource('bookings', BookingController::class);
 Route::get('bookings/{booking}/assignments', [AssignmentController::class, 'show']);
 Route::put('bookings/{booking}/assignments', [AssignmentController::class, 'sync']);
+Route::get('attendances', [AttendanceController::class, 'index']);
+Route::post('attendances', [AttendanceController::class, 'store']);
+Route::get('attendances/rekap', [AttendanceController::class, 'rekap']);

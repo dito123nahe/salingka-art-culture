@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'attendance_screen.dart';
 import '../providers/member_provider.dart';
 import 'member_form_screen.dart';
 import 'role_list_screen.dart';
@@ -29,6 +30,14 @@ class _MemberListScreenState extends State<MemberListScreen> {
       appBar: AppBar(
         title: const Text('Anggota Sanggar'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.fact_check),
+            tooltip: 'Absensi latihan',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const AttendanceScreen()),
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.badge),
             tooltip: 'Kelola peran',
