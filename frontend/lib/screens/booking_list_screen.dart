@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'honor_screen.dart';
 import 'finance_screen.dart';
 import 'assignment_screen.dart';
 import '../models/booking.dart';
@@ -152,22 +153,30 @@ class _BookingListScreenState extends State<BookingListScreen> {
                         children: [
                           if (b.linkMaps != null)
                             IconButton(
-                              icon: const Icon(Icons.account_balance_wallet),
-                              tooltip: 'Pembukuan',
-                              onPressed: () async {
-                                await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => FinanceScreen(booking: b),
-                                  ),
-                                );
-                                if (context.mounted) {
-                                  context
-                                      .read<BookingProvider>()
-                                      .fetchBookings();
-                                }
-                              },
+                              icon: const Icon(Icons.payments),
+                              tooltip: 'Honor pemain',
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => HonorScreen(booking: b),
+                                ),
+                              ),
                             ),
+                          IconButton(
+                            icon: const Icon(Icons.account_balance_wallet),
+                            tooltip: 'Pembukuan',
+                            onPressed: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => FinanceScreen(booking: b),
+                                ),
+                              );
+                              if (context.mounted) {
+                                context.read<BookingProvider>().fetchBookings();
+                              }
+                            },
+                          ),
                           IconButton(
                             icon: const Icon(Icons.groups),
                             tooltip: 'Atur pemain',
